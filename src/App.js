@@ -13,8 +13,7 @@ function App() {
   const getWeatherData = (city, country) => {
     axios({
       method: "GET",
-      // 180941f68139fba12f166dc35d9b688b
-      url: `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=c96b1cf6f53ca735de8f301090551ef3`,
+      url: `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=180941f68139fba12f166dc35d9b688b`,
     })
       .then((response) => {
         console.log(response.data.main.temp);
@@ -30,42 +29,73 @@ function App() {
         console.log(error);
       });
   };
+
   return (
-    <div className="App">
-      <h1>Weather App</h1>
-      <div style={{marginLeft:"0%"}}>
-      <form className="search-form">
+    <>
+      <div className="App">
+        <h1>Weather APP</h1>
+      </div>
+      {/* <div
+        style={{ height: "5px", width: "100%", backgroundColor: "blue" }}
+      ></div> */}
+      <br />
+      <div style={{ marginLeft: "25%" }}>
+        <div className="weathercard">
+          {new Date().toLocaleString()}
+          <br />
+          {city} Weather
+          <br />
+          {/* {Math.round(temperature * 100) / 100} ℉ */}
+          {Math.round(temperature * 100) / 100} ℃ - {desc}
+        </div>
+        <br />
+        
         <input
+        style={{
+          width: 235,
+          height: 40,
+          padding:10,
+          borderColor: "#034e79",
+          borderSpacing:10,
+          fontSize:30,
+          backgroundColor:"#b5d9ee"
+          }}
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
         <input
-        type="text"
-        value={country}
-        onChange={(e)=> setCountry(e.target.value)}
+          style={{
+            width: 235,
+            height: 40,
+            padding:10,
+            borderColor: "#034e79",
+            borderSpacing:10,
+            fontSize:30,
+            backgroundColor:"#b5d9ee"
+            }}
+          type="text"
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
         />
-        <button style={{ backgroundColor: "#2174a3" },{width:255},{height:30}}
-        onClick={()=>{
-          getWeatherData(city,country);
-        }}>
-          <Typography variant="h4" align="center" style={{textDecorationColor:"#FFFFFF"}}>
+        <button
+        style={{
+          width: 150,
+          height: 64,
+          padding:10,
+          borderColor: "#034e79",
+          borderSpacing:10,
+          fontSize:30,
+          backgroundColor:"#639cbd"
+          }}
+          onClick={() => {
+            getWeatherData(city, country);
+          }}
+        >
           GET
-          </Typography>
         </button>
-        </form>
-        <div className="weathercard">
-           {new Date().toLocaleString()}
-          <br />
-          {city} Weather
-          <br/>
-        {Math.round(temperature * 100)/100} °C -{desc}
-        </div>
-        <br/>
-        
       </div>
-      
-    </div>
+    </>
   );
 }
 
